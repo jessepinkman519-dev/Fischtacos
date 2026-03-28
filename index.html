@@ -1,121 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farm & Sea — Fresh Catch</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farm & Sea — Fresh Catch</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: white;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1320;
+      color: white;
+      line-height: 1.5;
+    }
 
-.hero {
-  position: relative;
-  height: 90vh;
-  background:taco1.jpg
+    .hero {
+      position: relative;
+      min-height: 62vh;
+      display: flex;
+      align-items: flex-end;
+      background:
+        linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.65)),
+        url('taco1.jpg') center center / cover no-repeat;
+    }
 
-.overlay {
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
-}
+    .hero-content {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 32px;
+    }
 
-.hero-content {
-  position: absolute;
-  bottom: 40px;
-  left: 20px;
-}
+    .eyebrow {
+      letter-spacing: 2px;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
 
-h1 {
-  font-size: 36px;
-  margin: 0;
-}
+    h1 {
+      margin: 0 0 10px;
+      font-size: 40px;
+      line-height: 1.05;
+    }
 
-.btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 12px 20px;
-  background: #22c55e;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 6px;
-}
+    .sub {
+      margin: 0 0 18px;
+      max-width: 520px;
+      font-size: 16px;
+      opacity: 0.95;
+    }
 
-.section {
-  padding: 30px 20px;
-}
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #d7b56d;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+    }
 
-.image {
-  width: 100%;
-  border-radius: 10px;
-}
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
 
-.features {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+    .intro {
+      text-align: center;
+    }
 
-.feature {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 8px;
-}
+    .intro h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
 
-.actions a {
-  display: block;
-  margin: 10px 0;
-  padding: 15px;
-  text-align: center;
-  background: #38bdf8;
-  color: black;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-}
-</style>
+    .intro p {
+      max-width: 720px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .feature {
+      background: #152033;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .text-card {
+      background: #152033;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .text-card h3 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .actions a {
+      display: block;
+      text-align: center;
+      padding: 14px 16px;
+      background: #d7b56d;
+      color: #111;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        min-height: 52vh;
+        background-position: center center;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .card-image {
+        min-height: 240px;
+        max-height: 380px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="hero">
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>Farm & Sea</h1>
-    <p>Fresh Catch Fish Tacos</p>
-    <a href="#" class="btn">View Today’s Menu</a>
-  </div>
-</div>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Bandon Waterfront</div>
+      <h1>Farm & Sea Fish Tacos</h1>
+      <p class="sub">
+        Fresh coastal flavor, bold color, and a premium local-food experience built to stop the scroll.
+      </p>
+      <a class="btn" href="#experience">See the Experience</a>
+    </div>
+  </section>
 
-<div class="section">
-  <h2>Fresh from the Bandon Coast</h2>
-  <p>Prepared daily using locally sourced seafood, crafted right on the waterfront.</p>
-</div>
+  <section class="section intro" id="experience">
+    <h2>Fresh from the Bandon Coast</h2>
+    <p>
+      This is what happens when a simple food post becomes a real digital experience:
+      stronger presentation, better story, and clear actions customers can actually take.
+    </p>
+  </section>
 
-<div class="section">
-  <div class="features">
-    <div class="feature">🌊 Caught Local</div>
-    <div class="feature">👨‍🍳 Made Fresh Daily</div>
-    <div class="feature">⭐ Customer Favorite
-  </div><img src="taco2.jpg">
-</div>
+  <section class="section">
+    <div class="features">
+      <div class="feature">🌊 Caught Local</div>
+      <div class="feature">👨‍🍳 Made Fresh Daily</div>
+      <div class="feature">⭐ Customer Favorite</div>
+    </div>
+  </section>
 
-<div class="section">
-  <img src="YOUR_TACO_IMAGE_2.jpg" class="image">
-</div>
+  <section class="section">
+    <div class="gallery">
+      <img src="taco2.jpg" alt="Farm and Sea fish tacos plated" class="card-image" />
 
-<div class="section actions">
-  <a href="#">📍 Get Directions</a>
-  <a href="#">📞 Call Now</a>
-  <a href="#">📖 View Menu</a>
-  <a href="#">🔥 Today’s Specials</a>
-</div>
+      <div class="text-card">
+        <h3>Built for appetite and action</h3>
+        <p>
+          Real food. Real product. Real local leverage.
+          This page turns attention into intent by giving people something they can feel, trust, and act on.
+        </p>
+        <p>
+          ScanCraft is not just posting content. It is creating the digital layer that makes the content work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="actions">
+      <a href="#">📍 Get Directions</a>
+      <a href="#">📞 Call Now</a>
+      <a href="#">📖 View Menu</a>
+      <a href="#">🔥 Today’s Specials</a>
+    </div>
+  </section>
 
 </body>
 </html>
