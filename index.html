@@ -157,7 +157,9 @@
     .glass,
     .stat,
     .feature,
-    .story-card {
+    .story-card,
+    .qr-card,
+    .qr-panel {
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -169,7 +171,8 @@
     }
 
     .glass h2,
-    .story-card h3 {
+    .story-card h3,
+    .qr-card h3 {
       margin-top: 0;
       margin-bottom: 10px;
       font-size: clamp(26px, 4vw, 34px);
@@ -178,7 +181,8 @@
     }
 
     .glass p,
-    .story-card p {
+    .story-card p,
+    .qr-card p {
       margin: 0;
       color: var(--muted);
     }
@@ -330,6 +334,95 @@
       transform: translateY(-2px);
     }
 
+    .qr-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .qr-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .qr-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(216,180,106,0.14);
+      border: 1px solid rgba(216,180,106,0.28);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .qr-list {
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .qr-list li {
+      margin-bottom: 10px;
+    }
+
+    .qr-panel {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #qrcode {
+      width: 220px;
+      height: 220px;
+      background: white;
+      padding: 14px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    #qrcode canvas,
+    #qrcode img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .qr-panel h4 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .qr-panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 320px;
+    }
+
+    .link-box {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      word-break: break-all;
+    }
+
     .footer-note {
       text-align: center;
       color: rgba(245, 241, 232, 0.58);
@@ -341,7 +434,8 @@
       .intro-grid,
       .story-wrap,
       .features,
-      .actions {
+      .actions,
+      .qr-wrap {
         grid-template-columns: 1fr;
       }
 
@@ -373,13 +467,20 @@
       .story-card,
       .feature,
       .stat,
-      .cta-band {
+      .cta-band,
+      .qr-card,
+      .qr-panel {
         padding-left: 18px;
         padding-right: 18px;
       }
 
       .actions a {
         min-height: 56px;
+      }
+
+      #qrcode {
+        width: 190px;
+        height: 190px;
       }
     }
   </style>
@@ -395,7 +496,7 @@
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#experience">See the Experience</a>
-        <a class="btn btn-secondary" href="#actions">Take Action</a>
+        <a class="btn btn-secondary" href="#qr-experience">Scan the Demo</a>
       </div>
     </div>
   </section>
@@ -471,7 +572,7 @@
         This is the ScanCraft shift: taking content that already exists and giving it structure, presentation, and momentum.
       </p>
 
-      <div class="actions" id="actions">
+      <div class="actions">
         <a href="#">📍 Get Directions</a>
         <a href="#">📞 Call Now</a>
         <a href="#">📖 View Menu</a>
@@ -480,9 +581,48 @@
     </div>
   </section>
 
+  <section class="section" id="qr-experience">
+    <div class="qr-wrap">
+      <div class="qr-card">
+        <div class="qr-badge">ScanCraft QR Experience</div>
+        <h3>One scan. Instant experience.</h3>
+        <p>
+          This is the kill shot layer: a business card, flyer, text, or table tent can point directly into a premium mobile experience instead of a dead-end post.
+        </p>
+        <ul class="qr-list">
+          <li>Perfect for in-person pitching and leaving behind a real example.</li>
+          <li>Lets clients feel the ScanCraft model instead of just hearing about it.</li>
+          <li>Turns a single dish or special into a reusable digital entry point.</li>
+        </ul>
+      </div>
+
+      <div class="qr-panel">
+        <div id="qrcode"></div>
+        <h4>Scan to view this demo</h4>
+        <p>Open the full Farm & Sea taco experience instantly on mobile.</p>
+        <div class="link-box" id="live-url"></div>
+      </div>
+    </div>
+  </section>
+
   <div class="footer-note">
     Crafted as a premium concept experience for Farm & Sea.
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const liveUrl = window.location.href;
+    document.getElementById("live-url").textContent = liveUrl;
+
+    new QRCode(document.getElementById("qrcode"), {
+      text: liveUrl,
+      width: 192,
+      height: 192,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
 
 </body>
 </html>
