@@ -3,170 +3,383 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Farm & Sea — Fresh Catch</title>
+  <title>Farm & Sea — Fish Taco Experience</title>
   <style>
     * {
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #081018;
+      --panel: #102031;
+      --panel-soft: rgba(255,255,255,0.05);
+      --text: #f5f1e8;
+      --muted: rgba(245, 241, 232, 0.82);
+      --accent: #d8b46a;
+      --accent-dark: #be984f;
+      --line: rgba(255,255,255,0.08);
+      --shadow: 0 18px 50px rgba(0,0,0,0.28);
+      --radius: 22px;
+      --max: 1120px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #0b1320;
-      color: white;
-      line-height: 1.5;
+      background:
+        radial-gradient(circle at top, rgba(33, 73, 108, 0.22), transparent 36%),
+        linear-gradient(180deg, #09131d 0%, #081018 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      transition: all 0.2s ease;
     }
 
     .hero {
       position: relative;
-      min-height: 62vh;
+      min-height: 68vh;
       display: flex;
-      align-items: flex-end;
+      align-items: end;
       background:
-        linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.65)),
+        linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.58) 72%, rgba(6,12,18,0.9) 100%),
         url('taco1.jpg') center center / cover no-repeat;
+      overflow: hidden;
     }
 
-    .hero-content {
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0.28) 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
       width: 100%;
-      max-width: 1100px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 28px 20px 32px;
+      padding: 34px 20px 42px;
     }
 
     .eyebrow {
-      letter-spacing: 2px;
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
       font-size: 12px;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
-      opacity: 0.85;
-      margin-bottom: 8px;
+      backdrop-filter: blur(6px);
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: 40px;
-      line-height: 1.05;
+      margin: 0 0 14px;
+      max-width: 680px;
+      font-size: clamp(38px, 7vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -1.6px;
     }
 
-    .sub {
-      margin: 0 0 18px;
-      max-width: 520px;
-      font-size: 16px;
-      opacity: 0.95;
+    .hero p {
+      margin: 0 0 24px;
+      max-width: 560px;
+      font-size: 17px;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      background: #d7b56d;
-      color: #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 18px;
+      border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
-      border-radius: 999px;
+      letter-spacing: 0.2px;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.13);
+      transform: translateY(-1px);
     }
 
     .section {
-      max-width: 1100px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 28px 20px;
+      padding: 34px 20px;
     }
 
     .intro {
-      text-align: center;
+      padding-top: 18px;
     }
 
-    .intro h2 {
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+
+    .glass,
+    .stat,
+    .feature,
+    .story-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .glass {
+      padding: 24px;
+    }
+
+    .glass h2,
+    .story-card h3 {
       margin-top: 0;
       margin-bottom: 10px;
-      font-size: 28px;
+      font-size: clamp(26px, 4vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.8px;
     }
 
-    .intro p {
-      max-width: 720px;
-      margin: 0 auto;
-      opacity: 0.9;
+    .glass p,
+    .story-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stat {
+      padding: 20px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-note {
+      color: var(--muted);
+      font-size: 14px;
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
     .feature {
-      background: #152033;
-      padding: 18px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
     }
 
-    .gallery {
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .feature h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .story-wrap {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 18px;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
       align-items: stretch;
     }
 
-    .card-image {
+    .story-image {
       width: 100%;
       height: 100%;
-      min-height: 280px;
-      max-height: 520px;
+      min-height: 360px;
+      max-height: 560px;
       object-fit: cover;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
       display: block;
-      border-radius: 20px;
+      border: 1px solid var(--line);
     }
 
-    .text-card {
-      background: #152033;
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.08);
+    .story-card {
+      padding: 28px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    .text-card h3 {
-      margin-top: 0;
-      font-size: 26px;
+    .story-points {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .story-points li {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+    }
+
+    .cta-band {
+      margin-top: 8px;
+      padding: 26px;
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, rgba(216,180,106,0.18), rgba(255,255,255,0.03));
+      border: 1px solid rgba(216,180,106,0.22);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cta-band h3 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      letter-spacing: -0.8px;
+    }
+
+    .cta-band p {
+      max-width: 660px;
+      margin: 0 auto 18px;
+      color: var(--muted);
     }
 
     .actions {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 10px;
     }
 
     .actions a {
-      display: block;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 62px;
       padding: 14px 16px;
-      background: #d7b56d;
-      color: #111;
+      text-align: center;
       text-decoration: none;
-      font-weight: 700;
-      border-radius: 14px;
+      font-weight: 800;
+      border-radius: 18px;
+      background: var(--accent);
+      color: #111;
+      box-shadow: var(--shadow);
     }
 
-    @media (max-width: 800px) {
-      .hero {
-        min-height: 52vh;
-        background-position: center center;
-      }
+    .actions a:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
 
-      h1 {
-        font-size: 32px;
-      }
+    .footer-note {
+      text-align: center;
+      color: rgba(245, 241, 232, 0.58);
+      font-size: 13px;
+      padding: 8px 20px 34px;
+    }
 
-      .gallery {
+    @media (max-width: 920px) {
+      .intro-grid,
+      .story-wrap,
+      .features,
+      .actions {
         grid-template-columns: 1fr;
       }
 
-      .card-image {
-        min-height: 240px;
-        max-height: 380px;
+      .hero {
+        min-height: 60vh;
+        background-position: center center;
+      }
+
+      .story-image {
+        min-height: 280px;
+        max-height: 420px;
+      }
+
+      .cta-band h3 {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        min-height: 56vh;
+      }
+
+      .hero-inner {
+        padding-bottom: 34px;
+      }
+
+      .glass,
+      .story-card,
+      .feature,
+      .stat,
+      .cta-band {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .actions a {
+        min-height: 56px;
       }
     }
   </style>
@@ -174,57 +387,102 @@
 <body>
 
   <section class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">Bandon Waterfront</div>
-      <h1>Farm & Sea Fish Tacos</h1>
-      <p class="sub">
-        Fresh coastal flavor, bold color, and a premium local-food experience built to stop the scroll.
+    <div class="hero-inner">
+      <div class="eyebrow">Bandon Waterfront • Farm & Sea</div>
+      <h1>Fresh Catch Fish Tacos, Elevated.</h1>
+      <p>
+        A premium coastal food experience built from a single post — turning appetite, story, and local identity into something people can actually act on.
       </p>
-      <a class="btn" href="#experience">See the Experience</a>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#experience">See the Experience</a>
+        <a class="btn btn-secondary" href="#actions">Take Action</a>
+      </div>
     </div>
   </section>
 
   <section class="section intro" id="experience">
-    <h2>Fresh from the Bandon Coast</h2>
-    <p>
-      This is what happens when a simple food post becomes a real digital experience:
-      stronger presentation, better story, and clear actions customers can actually take.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="features">
-      <div class="feature">🌊 Caught Local</div>
-      <div class="feature">👨‍🍳 Made Fresh Daily</div>
-      <div class="feature">⭐ Customer Favorite</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="gallery">
-      <img src="taco2.jpg" alt="Farm and Sea fish tacos plated" class="card-image" />
-
-      <div class="text-card">
-        <h3>Built for appetite and action</h3>
+    <div class="intro-grid">
+      <div class="glass">
+        <h2>What this demonstrates</h2>
         <p>
-          Real food. Real product. Real local leverage.
-          This page turns attention into intent by giving people something they can feel, trust, and act on.
+          This page shows what happens when a strong food post stops being static content and becomes a digital experience. Same product. Higher perceived value. Clearer customer path.
         </p>
-        <p>
-          ScanCraft is not just posting content. It is creating the digital layer that makes the content work.
-        </p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Positioning</div>
+          <div class="stat-value">Premium Coastal</div>
+          <div class="stat-note">Fresh, local, polished, and built to fit the Farm & Sea vibe.</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">ScanCraft Layer</div>
+          <div class="stat-value">Content → Action</div>
+          <div class="stat-note">Not just a post. A digital surface that can drive intent.</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="actions">
-      <a href="#">📍 Get Directions</a>
-      <a href="#">📞 Call Now</a>
-      <a href="#">📖 View Menu</a>
-      <a href="#">🔥 Today’s Specials</a>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🌊</div>
+        <h3>Caught Local</h3>
+        <p>Rooted in place, flavor, and waterfront identity.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">👨‍🍳</div>
+        <h3>Made Fresh Daily</h3>
+        <p>Presentation that reinforces freshness instead of leaving it implied.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⭐</div>
+        <h3>Customer Favorite</h3>
+        <p>Built to spotlight the dish people already want and make it more memorable.</p>
+      </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="story-wrap">
+      <img src="taco2.jpg" alt="Farm and Sea fish tacos" class="story-image" />
+
+      <div class="story-card">
+        <h3>Built for appetite and action</h3>
+        <p>
+          Real food. Real product. Real leverage. This kind of page gives the dish more presence, more context, and a cleaner path from attention to decision.
+        </p>
+
+        <ul class="story-points">
+          <li>Turns one food post into a polished mobile-first experience.</li>
+          <li>Raises perceived value without changing the product itself.</li>
+          <li>Creates a format that can be reused for specials, features, and seasonal items.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-band">
+      <h3>From static post to customer action</h3>
+      <p>
+        This is the ScanCraft shift: taking content that already exists and giving it structure, presentation, and momentum.
+      </p>
+
+      <div class="actions" id="actions">
+        <a href="#">📍 Get Directions</a>
+        <a href="#">📞 Call Now</a>
+        <a href="#">📖 View Menu</a>
+        <a href="#">🔥 Today’s Specials</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">
+    Crafted as a premium concept experience for Farm & Sea.
+  </div>
 
 </body>
 </html>
